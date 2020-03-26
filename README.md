@@ -25,13 +25,13 @@ This is an app for the outdoorsperson in all of us. It allows the user to explor
 
 **Required Must-have Stories**
 
-* [fill in your required user stories here]
-* ...
+* User can view a map that is populated with pins set by other users.
+* User can tap on pins to view photos and other details of the associated location.
+* User is able to create a "trip" which their friends may sign up for to indicate interest in going.
 
 **Optional Nice-to-have Stories**
 
-* [fill in your required user stories here]
-* ...
+* User may choose a road trip destination and get recoomendations for hiking/climbing spots near the calculated route.
 
 ### 2. Screen Archetypes
 
