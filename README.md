@@ -7,7 +7,7 @@
 
 ## Overview
 ### Description
-This is an app for the outdoorsperson in all of us. It allows the user to explore outdoor destinations via pins on a map and to view pictures associated with each location so the user to pick a spot to travel to. The application will allow outdoorspeople to communicate with friends and plan group trips.
+Climb is an app that allows climbers and mountaineers to find new climbs and connect with others. 
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -25,16 +25,17 @@ This is an app for the outdoorsperson in all of us. It allows the user to explor
 ### 1. User Stories (Required and Optional)
 
 **Required Must-have Stories**
-* User can log in or sign up.  
-* User can view a map that is populated with pins set by other users.
-* User can create pins and routes. 
-* User can tap on pins to view photos and other details of the associated location.
-* User is able to create a "trip" which their friends may sign up for to indicate interest in going.
+* User can log in or sign up. 
+* Has a map with pins for each location where there are climb(s). 
+* Routes are tagged on the map and have an image and description that includes the difficulty, rating, and tags. 
+* Users can create routes and pins. 
+* Users can friend/unfriend other users. 
+* Users can create trips for a certain date and time at a pin/location with friends, and trips can be public or private. 
 * Users have a profile that other users can view. 
 
 **Optional Nice-to-have Stories**
-* Users can friend/unfriend other users.
-* User may choose a road trip destination and get recomendations for hiking/climbing spots near the calculated route.
+
+* Users can input a starting location and destination and see climbs along the way that match their interests. 
 * Users can see a feed with their friends achievements, climbs that match their interests and location, new routes and pins, 
   and trips that are set to public or that they have been invited to view. 
 * Users can send messages to other users including friends. 

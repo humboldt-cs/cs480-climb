@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Climb</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="username">Username</string>
+    <string name="displayName">Display Name</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="email">Email</string>
+    <string name="submit">Submit</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="map">Map</string>
+    <string name="logout">Log Out</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
 </resources>
