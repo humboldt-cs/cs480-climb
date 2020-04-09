@@ -23,7 +23,7 @@ import com.parse.ParseUser;
 
 import static com.parse.Parse.getApplicationContext;
 
-public class ProfileActivity extends Fragment {
+public class ProfileFragment extends Fragment {
     private ImageView profileImg;
     private TextView displayName;
     private TextView userBio;
