@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
+
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -74,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goMainActivity() {
-        Intent i = new Intent(this, MapsActivity.class);
-        startActivity(i);
+        Intent result = new Intent();
+        setResult(RESULT_OK);
         finish();
     }
 
