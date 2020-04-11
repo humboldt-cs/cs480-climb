@@ -4,21 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.climb.R;
+import com.example.climb.fragments.MapsFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity
 {
+    public final String TAG = getClass().getSimpleName();
     public static final int LOGIN_REQUEST_CODE = 42;
 
     NavigationView nvDrawer;
     DrawerLayout drawerLayout;
+    FrameLayout flContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,6 +36,19 @@ public class MainActivity extends AppCompatActivity
 
         nvDrawer = findViewById(R.id.nvDrawer);
         drawerLayout = findViewById(R.id.drawerLayout);
+        flContent = findViewById(R.id.flContent);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        try
+        {
+            fragmentManager.beginTransaction().replace(R.id.flContent, ((Fragment) (MapsFragment.class.newInstance()))).commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "Unable to load map fragment.", Toast.LENGTH_SHORT).show();
+        }
 
         if (ParseUser.getCurrentUser() != null)
         {
