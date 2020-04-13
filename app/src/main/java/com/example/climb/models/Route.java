@@ -8,10 +8,14 @@ public class Route extends ParseObject
 {
     public static final String KEY_NAME = "name";
     public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_LOCATION = "location";
 
     public String getName() { return getString(KEY_NAME); }
     public void setName(String name) { put(KEY_NAME, name); }
 
     public String getDescription() { return getString(KEY_DESCRIPTION); }
     public void setDescription(String description) { put(KEY_DESCRIPTION, description); }
+
+    public ParseObject getLocation() { return getParseObject(KEY_LOCATION); }
+    public void setLocation(ParseObject location) { put(KEY_LOCATION, location); }
 }

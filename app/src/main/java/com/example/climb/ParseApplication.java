@@ -2,6 +2,10 @@ package com.example.climb;
 
 import android.app.Application;
 
+import com.example.climb.models.Beta;
+import com.example.climb.models.Location;
+import com.example.climb.models.Route;
+import com.example.climb.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -11,6 +15,11 @@ public class ParseApplication extends Application
     public void onCreate()
     {
         super.onCreate();
+
+        ParseObject.registerSubclass(Location.class);
+        ParseObject.registerSubclass(Route.class);
+        ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Beta.class);
 
         // Must register data objects with Parse before calling initialize
         //ParseObject.registerSubclass(Post.class);

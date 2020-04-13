@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.climb.R;
 import com.example.climb.fragments.MapsFragment;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseUser;
 
