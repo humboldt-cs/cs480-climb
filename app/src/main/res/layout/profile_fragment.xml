@@ -12,16 +12,18 @@
         android:id="@+id/profileImg"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp" />
+        app:civ_border_color="#00000000"
+        app:civ_border_width="2dp"
+        tools:src="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/displayName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/displayName"
+        android:gravity="center"
         android:scaleType="centerInside"
-        android:gravity="center"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:text="@string/displayName" />
 
     <TextView
         android:id="@+id/userBio"

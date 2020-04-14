@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.climb.R;
 import com.example.climb.fragments.MapsFragment;
+import com.example.climb.fragments.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.parse.ParseUser;
 
@@ -71,6 +72,19 @@ public class MainActivity extends AppCompatActivity
                     nvDrawer.getMenu().clear();
                     nvDrawer.inflateMenu(R.menu.login_menu_drawer);
                 }
+                else if (item.getItemId() == R.id.menu_profile)
+                {
+                    Fragment pFragment = null;
+                    try {
+                        pFragment = ProfileFragment.class.newInstance();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(MainActivity.this, "Unable to load profile.", Toast.LENGTH_SHORT).show();
+                    }
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.flContent, pFragment).commit();
+                }
                 else if (item.getItemId() == R.id.menu_login)
                 {
                     Intent i = new Intent(MainActivity.this, LoginActivity.class);
@@ -82,12 +96,14 @@ public class MainActivity extends AppCompatActivity
                     startActivityForResult(i, LOGIN_REQUEST_CODE);
                 }
 
+
                 drawerLayout.closeDrawers();
 
                 return true;
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
