@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawerLayout"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="23dp"
+        android:elevation="6dp"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <include
-            android:id="@+id/include"
-            layout="@layout/toolbar" />
+        tools:context=".fragments.MapsFragment" />
 
-        <FrameLayout
-            android:id="@+id/flContent"
-            android:fitsSystemWindows="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/include"
-            >
-
-        </FrameLayout>
-
-    </RelativeLayout>
-
-    <com.google.android.material.navigation.NavigationView
+    <Button
+        android:id="@+id/btnProfile"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:id="@+id/nvDrawer">
-        <!--app:headerLayout="@layout/nav_header"-->
-        </com.google.android.material.navigation.NavigationView>
+        android:layout_height="wrap_content"
+        android:text="@string/profile" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>

@@ -50,4 +50,8 @@ dependencies {
 
     // CircleView dep
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Google maps dep
+    implementation 'com.google.maps.android:android-maps-utils:1.0.2'
+    implementation 'com.google.android.libraries.places:places:2.2.0'
 }
