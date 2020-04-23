@@ -33,7 +33,7 @@ public class SignupActivity extends AppCompatActivity
 
         // Attach private variables
         etUsername = findViewById(R.id.etUsername);
-        etDisplayName = findViewById(R.id.etDisplayName);
+        etDisplayName = findViewById(R.id.tvDisplayName);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etEmail = findViewById(R.id.etEmail);

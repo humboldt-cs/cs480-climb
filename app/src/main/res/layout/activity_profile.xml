@@ -9,7 +9,7 @@
     android:gravity="center">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImg"
+        android:id="@+id/ivProfileImg"
         android:layout_width="96dp"
         android:layout_height="96dp"
         app:civ_border_color="#00000000"
@@ -17,7 +17,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/displayName"
+        android:id="@+id/tvDisplayName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -26,7 +26,7 @@
         tools:text="@string/displayName" />
 
     <TextView
-        android:id="@+id/userBio"
+        android:id="@+id/tvBio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

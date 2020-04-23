@@ -18,10 +18,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap map;
     FusedLocationProviderClient fusedLocationProviderClient;
     Button btnProfile;
+    FloatingActionButton fabAddLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +50,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Find views
         btnProfile = findViewById(R.id.btnProfile);
+        fabAddLocation = findViewById(R.id.fabAddLocation);
 
         // Event listeners
         btnProfile.setOnClickListener(new View.OnClickListener()
@@ -54,11 +58,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v)
             {
-                // Launch profile activity for the current user
-                Intent intent = new Intent(MapsActivity.this, ProfileActivity.class);
+                if (ParseUser.getCurrentUser() != null)
+                {
+                    // Launch profile activity for the current user
+                    Intent intent = new Intent(MapsActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    // Send user to login
+                    Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        fabAddLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, CreateActivity.class);
                 startActivity(intent);
             }
         });
+
+
+
     }
 
     @Override

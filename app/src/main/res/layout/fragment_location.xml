@@ -49,7 +49,7 @@
         android:layout_marginRight="25dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:text="This is a climb and you can climb it and if you do climb it put a picture here. " />
+        tools:text="This is a route and there are multiples climbs here which you can see below." />
 
     <ScrollView
         android:layout_width="413dp"

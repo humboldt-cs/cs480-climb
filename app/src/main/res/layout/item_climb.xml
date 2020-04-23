@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- this is one row (featuring a climb). Multiple rows will fit into the recyclerview below a
+location's title and description, showing all the climbs at that location -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvClimbName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="25sp"
+        tools:text="Climb Name" />
+
+    <ImageView
+        android:id="@+id/ivClimbThumbnail"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/tvClimbName"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <!-- TODO- cut off description if it makes textview taller than image -->
+    <TextView
+        android:id="@+id/tvClimbDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvClimbName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/ivClimbThumbnail"
+        tools:text="Climbing Half Dome Half Dome. It's perhaps the most iconic symbol of Yosemite National Park. Rising 1,360 feet from an elevation of 8,844 feet above sea level, climbing Half Dome will take you dizzying heights with its sheer face and reward you with unparalleled views you'll remember for a lifetime." />
+</RelativeLayout>
