@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.climb.R;
-import com.example.climb.fragments.ClimbFragment;
-import com.example.climb.fragments.LocationFragment;
+import com.example.climb.fragments.NewClimbFragment1;
+import com.example.climb.fragments.NewLocationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 // CreateActivity contains two fragments - create route and create climb, with a switch button at
 // the top that allows the user to pick which one they want to create
@@ -36,13 +36,13 @@ public class CreateActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_climb:
-                        fragment = new ClimbFragment();
+                        fragment = new NewClimbFragment1();
                         break;
                     case R.id.action_location:
-                        fragment = new LocationFragment();
+                        fragment = new NewLocationFragment();
                         break;
                     default:
-                        fragment = new ClimbFragment();
+                        fragment = new NewClimbFragment1();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
