@@ -28,21 +28,23 @@ Climb is an app that allows climbers and mountaineers to find new climbs and con
 
 [x] User can log in or sign up.   
 [x] Has a map with pins for each location where there are climb(s).     
-[ ] Routes are tagged on the map and have an image and description that includes the difficulty, rating, and tags.  
-[ ] Users can create routes and pins.   
-[ ] Users can create trips for a certain date and time at a pin/location with friends, and trips can be public or private.  
-[ ] Users have a profile that other users can view.   
-[ ] User can add comments to trips and routes.  
-[ ] User can see or upload betas for a given route in the form of a video or annotated picture  
+[ ] User can see the difficulty and rating of each route in a location.
+[ ] Logged in users can create routes and markers.
+[ ] User can add comments to routes and locations.
+[ ] User can see directions to a climbing spot for each location.
+[ ] Logged in users may edit location description and directions and route description.
+[ ] User can see betas for a given route in the form of a video or annotated picture.
+[ ] Logged in users may upload betas for a route in the form of a video or annotated picture.
+[ ] In annotate pictures, users may see numbered circles to indicate the order of holds to be used on the route.
 
 
 **Optional Nice-to-have Stories**
-
+  
 [ ] Users can input a starting location and destination and see climbs along the way that match their interests.  
-[ ] Users can see a feed with their friends achievements, climbs that match their interests and location, new routes and pins, 
-  and trips that are set to public or that they have been invited to view.  
+[ ] Users can create trips for a certain date and time at a pin/location with friends, and trips can be public or private.
+[ ] Users can see a feed with their friends achievements, climbs that match their interests and location, new routes and pins in their location, and trips that are set to public or that they have been invited to view.  
 [ ] Users can send messages to other users including friends.   
-[ ] The user's profile includes their activity including recent trips, routes created, achievements, and pictures/videos posted by them.  
+[ ] The user's profile includes their activity including recent trips, routes created, a list of completed climbs, and pictures/videos posted by them. 
 [ ] Users can friend/unfriend other users.  
  
 
