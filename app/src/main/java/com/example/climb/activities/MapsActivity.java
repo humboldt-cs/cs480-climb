@@ -112,6 +112,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     loc.getName()
                             ));
                             marker.setTag(loc.getObjectId());
+                            Log.i(TAG, "Location " + loc.getObjectId() + " added.");
                         }
                     }
                 }
@@ -130,37 +131,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             {
                 final String locationId = marker.getTag().toString();
 
-                ParseQuery<Location> query = ParseQuery.getQuery(Location.class);
-                query.getInBackground(locationId, new GetCallback<Location>()
-                {
-                    @Override
-                    public void done(Location object, ParseException e)
-                    {
-                        if (e == null)
-                        {
-                            Log.i("MapsFragment", object.getName() + "\n\n\n\n\n\n\n\n\n");
-                        }
-                        else
-                        {
-                            Log.e("MapsFragment", "Could not find anything for object " + locationId);
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                Intent intent = new Intent(MapsActivity.this, LocationActivity.class);
+                intent.putExtra("locationId", locationId);
+                startActivity(intent);
             }
         });
-    }
-
-    void getDeviceLocation()
-    {
-        try
-        {
-            Task locationResult = fusedLocationProviderClient.getLastLocation();
-
-        }
-        catch (SecurityException e)
-        {
-            Log.e("Exception: %s", e.getMessage());
-        }
     }
 }

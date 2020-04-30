@@ -1,6 +1,8 @@
 package com.example.climb.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,11 +18,13 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView profileImg;
     private TextView displayName;
     private TextView userBio;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
         if (ParseUser.getCurrentUser() != null)
         {
@@ -32,7 +36,6 @@ public class ProfileActivity extends AppCompatActivity {
             {
                 String imageUrl = img.getUrl();
                 Glide.with(getApplicationContext()).load(imageUrl).into(profileImg);
-
             }
 
             displayName = findViewById(R.id.tvDisplayName);
@@ -42,7 +45,21 @@ public class ProfileActivity extends AppCompatActivity {
             userBio = findViewById(R.id.tvBio);
             String bio = currentUser.getString("bio");
             userBio.setText(bio);
+
+            btnLogout = findViewById(R.id.btnLogout);
+            btnLogout.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    ParseUser.logOut();
+                    finish();
+                }
+            });
+        }
+        else
+        {
+            finish();
         }
     }
-
 }
