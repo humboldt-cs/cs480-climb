@@ -1,11 +1,13 @@
 package com.example.climb.models;
 
+import android.media.Image;
 import android.provider.Contacts;
 import android.util.Log;
 
 import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -20,7 +22,7 @@ public class Route extends ParseObject
     public static final String KEY_LOCATION = "location";
     public static final String KEY_DIFFICULTY = "difficulty";
     public static final String KEY_METHOD = "method";
-    protected List <Photo> allPhotos;
+    public static final String KEY_THUMBNAIL = "thumbnail";
 
 
     public String getId() { return getString(KEY_OBJECT_ID); }
@@ -41,6 +43,9 @@ public class Route extends ParseObject
     public String getMethod() { return getString(KEY_METHOD); }
     public void setMethod(String method) { put(KEY_METHOD, method); }
 
+    public ParseFile getThumbnail() { return getParseFile(KEY_THUMBNAIL); }
+    public void setThumbnail(ParseFile thumbnail) { put(KEY_THUMBNAIL, thumbnail); }
+
 
     protected void queryPhotos() {
         ParseQuery<Photo> query = ParseQuery.getQuery("Photos");
@@ -58,7 +63,7 @@ public class Route extends ParseObject
                 for (Photo photo : photos) {
                     Log.i("Route", "Post: " + photo.getImage());
                 }
-                allPhotos.addAll(photos);
+                //allPhotos.addAll(photos);
                 //adapter.notifyDataSetChanged();
             }
         });

@@ -75,8 +75,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fabAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, CreateActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MapsActivity.this, .class);
+                //startActivity(intent);
             }
         });
 

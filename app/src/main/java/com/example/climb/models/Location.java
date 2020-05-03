@@ -7,9 +7,14 @@ import com.parse.ParseObject;
 @ParseClassName("Location")
 public class Location extends ParseObject
 {
+    public static final String KEY_OBJECT_ID = "objectId";
     public static final String KEY_NAME = "name";
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_LAT_LONG = "latLong";
+
+
+    public String getId() { return getString(KEY_OBJECT_ID); }
+    public void setId(String objectId) { put(KEY_OBJECT_ID, objectId); }
 
     public String getName() { return getString(KEY_NAME); }
     public void setName(String name) { put(KEY_NAME, name); }
