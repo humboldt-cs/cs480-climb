@@ -1,26 +1,33 @@
 package com.example.climb.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.climb.R;
 import com.example.climb.models.Location;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -32,11 +39,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Public member variables
     public final String TAG = getClass().getSimpleName();
 
+    final int PERMISSION_REQUEST_CODE = 8;
+    final String[] REQUIRED_PERMISSIONS =
+            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION};
+    boolean locationPermissionsGranted = false;
+
     // Private member variables
     GoogleMap map;
     FusedLocationProviderClient fusedLocationProviderClient;
-    Button btnProfile;
+    Button btnRefresh;
     FloatingActionButton fabAddLocation;
+    android.location.Location lastKnownLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,31 +58,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Ensure all permissions are granted
+        if (!allPermissionsGranted())
+        {
+            ActivityCompat.requestPermissions(
+                    this, REQUIRED_PERMISSIONS, PERMISSION_REQUEST_CODE
+            );
+        }
+        else
+        {
+            locationPermissionsGranted = true;
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        fusedLocationProviderClient = new FusedLocationProviderClient(this);
 
         // Find views
-        btnProfile = findViewById(R.id.btnProfile);
+        btnRefresh = findViewById(R.id.btnRefresh);
         fabAddLocation = findViewById(R.id.fabAddLocation);
 
         // Event listeners
-        btnProfile.setOnClickListener(new View.OnClickListener()
+        btnRefresh.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (ParseUser.getCurrentUser() != null)
-                {
-                    // Launch profile activity for the current user
-                    Intent intent = new Intent(MapsActivity.this, ProfileActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    // Send user to login
-                    Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
+                loadLocations();
             }
         });
 
@@ -89,6 +106,88 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     {
         map = googleMap;
 
+        Task loc = fusedLocationProviderClient.getLastLocation();
+        loc.addOnCompleteListener(this, new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()) {
+                    // Set the map's camera position to the current location of the device.
+                    lastKnownLocation = (android.location.Location)task.getResult();
+                    LatLng latLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                    map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f));
+                } else {
+                    Log.d(TAG, "Current location is null. Using defaults.");
+                    Log.e(TAG, "Exception: %s", task.getException());
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(37.8651, 119.5383), 10.0f));
+                }
+            }
+        });
+
+        loadLocations();
+
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
+        {
+            @Override
+            public void onInfoWindowClick(Marker marker)
+            {
+                final String locationId = marker.getTag().toString();
+
+                Intent intent = new Intent(MapsActivity.this, LocationActivity.class);
+                intent.putExtra("locationId", locationId);
+                startActivity(intent);
+            }
+        });
+    }
+
+    // Process result from permission request dialog box
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_REQUEST_CODE)
+        {
+            if (checkGrantResults(grantResults))
+            {
+                locationPermissionsGranted = true;
+            }
+        }
+    }
+
+    // Check if all permissions have been granted
+    boolean allPermissionsGranted()
+    {
+        boolean granted = true;
+
+        for (String p : REQUIRED_PERMISSIONS)
+        {
+            if (ContextCompat.checkSelfPermission(getBaseContext(), p)
+                    != PackageManager.PERMISSION_GRANTED)
+            {
+                granted = false;
+            }
+        }
+
+        return granted;
+    }
+
+    boolean checkGrantResults(int[] grantResults)
+    {
+        for (int i = 0; i < grantResults.length; i++)
+        {
+            if (PackageManager.PERMISSION_GRANTED != grantResults[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void loadLocations()
+    {
         // Query for all locations in the database
         ParseQuery<Location> query = ParseQuery.getQuery(Location.class);
         query.include(Location.KEY_NAME);
@@ -121,19 +220,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.e("MapsFragment", "Unable to load locations.");
                     e.printStackTrace();
                 }
-            }
-        });
-
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
-        {
-            @Override
-            public void onInfoWindowClick(Marker marker)
-            {
-                final String locationId = marker.getTag().toString();
-
-                Intent intent = new Intent(MapsActivity.this, LocationActivity.class);
-                intent.putExtra("locationId", locationId);
-                startActivity(intent);
             }
         });
     }
