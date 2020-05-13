@@ -49,7 +49,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap map;
     FusedLocationProviderClient fusedLocationProviderClient;
     Button btnRefresh;
-    FloatingActionButton fabAddLocation;
     android.location.Location lastKnownLocation;
 
     @Override
@@ -77,7 +76,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Find views
         btnRefresh = findViewById(R.id.btnRefresh);
-        fabAddLocation = findViewById(R.id.fabAddLocation);
 
         // Event listeners
         btnRefresh.setOnClickListener(new View.OnClickListener()
@@ -86,14 +84,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v)
             {
                 loadLocations();
-            }
-        });
-
-        fabAddLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(MapsActivity.this, .class);
-                //startActivity(intent);
             }
         });
 
