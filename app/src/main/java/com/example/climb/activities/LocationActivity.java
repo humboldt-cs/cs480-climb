@@ -86,26 +86,27 @@ public class LocationActivity extends AppCompatActivity
 
     }
     protected void queryRoutes() {
-        ParseQuery<Route> query = ParseQuery.getQuery(Route.class);
-        query.include(Route.KEY_LOCATION);
-        query.whereEqualTo(Location.KEY_OBJECT_ID, this);
-        //query.setLimit(20);
-        query.addDescendingOrder(Route.KEY_CREATED_AT);
-        query.findInBackground(new FindCallback<Route>() {
+        ParseObject dummyLocation = ParseObject.createWithoutData("Location", locationId);
+        ParseQuery query2 = ParseQuery.getQuery(Route.class);
+        query2.whereEqualTo("location", dummyLocation);
+        query2.findInBackground(new FindCallback<Route>()
+        {
             @Override
-            public void done(List<Route> routes, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting routes", e);
-                    return;
+            public void done(List<Route> routes, ParseException e)
+            {
+                if (e != null)
+                {
+                    Log.d(TAG, "Error querying parse for routes");
                 }
-                for (Route route : routes) {
-                    Log.i("Route", "Name: " + route.getName());
+                Log.i(TAG, "Adding routes...");
+                for (Route route : routes)
+                {
+                    Log.i(TAG, route.getName());
                 }
-                adapter.clear();
-                allRoutes.addAll(routes);
-                adapter.notifyDataSetChanged();
+                adapter.addAll(routes);
             }
         });
     }
+
 
 }
