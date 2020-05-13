@@ -18,4 +18,5 @@
     <string name="refresh">Refresh</string>
     <string name="upload">Upload</string>
     <string name="undo">Undo</string>
+    <string name="addBeta">Add Beta</string>
 </resources>

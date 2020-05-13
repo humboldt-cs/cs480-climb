@@ -3,17 +3,27 @@ package com.example.climb.activities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.climb.R;
+import com.example.climb.models.Route;
 import com.example.climb.views.AnnotationView;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
+
+import java.io.ByteArrayOutputStream;
 
 public class AnnotationActivity extends AppCompatActivity implements View.OnTouchListener
 {
@@ -22,6 +32,8 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnTouc
     AnnotationView ivTakenImage;
     Button btnUpload;
     Button btnUndo;
+
+    String route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,6 +49,8 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnTouc
         // Get file and intended orientation
         String filepath = getIntent().getStringExtra("filepath");
         int orientation = getIntent().getIntExtra("orientation", 0);
+
+        route = getIntent().getStringExtra("route");
 
         // Get bitmap of the taken image
         Bitmap myBitmap = BitmapFactory.decodeFile(filepath);
@@ -82,6 +96,41 @@ public class AnnotationActivity extends AppCompatActivity implements View.OnTouc
                 {
                     e.printStackTrace();
                 }
+            }
+        });
+        btnUpload.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                ByteArrayOutputStream byteArrayOutputStream =
+                        new ByteArrayOutputStream();
+
+                ivTakenImage.finalize();
+                Bitmap bmp = ((BitmapDrawable)ivTakenImage.getDrawable()).getBitmap();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] bmpBytes = byteArrayOutputStream.toByteArray();
+
+                ParseFile file = new ParseFile("a" + ".png", bmpBytes);
+
+                ParseObject photo = new ParseObject("Photos");
+                photo.put("AssocClassID", route);
+                photo.put("photo", file);
+                photo.saveInBackground(new SaveCallback()
+                {
+                    @Override
+                    public void done(ParseException e)
+                    {
+                        if (e != null)
+                        {
+                            Toast.makeText(AnnotationActivity.this, "Unable to upload image", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Toast.makeText(AnnotationActivity.this, "Image saved successfully", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                });
             }
         });
     }

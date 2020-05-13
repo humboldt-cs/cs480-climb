@@ -1,8 +1,10 @@
 package com.example.climb.models;
 
+import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+@ParseClassName("Photos")
 public class Photo extends ParseObject {
 
     public static final String KEY_ASSOC_CLASS_ID= "AssocClassID";

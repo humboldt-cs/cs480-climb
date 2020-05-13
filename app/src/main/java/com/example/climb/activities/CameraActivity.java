@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.climb.R;
+import com.example.climb.models.Route;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
@@ -63,6 +64,9 @@ public class CameraActivity extends AppCompatActivity implements LifecycleOwner,
     final String[] REQUIRED_PERMISSIONS =
             new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
+    // Route that will be used by AnnotationActivity to upload the photo
+    String route;
+
     // Image capture to be used with CameraX to take a picture
     ImageCapture imageCapture;
 
@@ -90,6 +94,15 @@ public class CameraActivity extends AppCompatActivity implements LifecycleOwner,
             ActivityCompat.requestPermissions(
                     this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             );
+        }
+
+        route = getIntent().getStringExtra("route");
+
+        if (route == null)
+        {
+            // If route is null, this activity is pointless
+            Log.e(TAG, "Unable to retrieve route");
+            finish();
         }
 
         // Listeners
@@ -122,6 +135,7 @@ public class CameraActivity extends AppCompatActivity implements LifecycleOwner,
                         Intent i = new Intent(CameraActivity.this, AnnotationActivity.class);
                         i.putExtra("filepath", file.getAbsolutePath());
                         i.putExtra("orientation", previewView.getDisplay().getRotation());
+                        i.putExtra("route", route);
                         startActivityForResult(i, ANNOTATION_REQUEST_CODE);
                     }
 
@@ -237,11 +251,12 @@ public class CameraActivity extends AppCompatActivity implements LifecycleOwner,
 
         if (requestCode == ANNOTATION_REQUEST_CODE && resultCode == RESULT_OK)
         {
+            Toast.makeText(this, "Picture uploaded", Toast.LENGTH_SHORT).show();
             finish();
         }
         else
         {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Picture not uploaded", Toast.LENGTH_SHORT).show();
         }
     }
 }

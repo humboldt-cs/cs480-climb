@@ -2,8 +2,11 @@ package com.example.climb.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +31,8 @@ public class ClimbActivity extends AppCompatActivity
 
     ImageView ivRouteThumbnail;
 
+    Button btnAddBeta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ public class ClimbActivity extends AppCompatActivity
         tvRouteDifficulty = findViewById(R.id.tvRouteDifficulty);
         tvRouteDescription = findViewById(R.id.tvRouteDescription);
         ivRouteThumbnail = findViewById(R.id.ivRouteThumbnail);
+        btnAddBeta = findViewById(R.id.btnAddBeta);
 
         tvRouteName.setText(route.getName());
         tvRouteDifficulty.setText(route.getDifficulty());
@@ -60,6 +66,17 @@ public class ClimbActivity extends AppCompatActivity
             public void done(List<Photo> routes, ParseException e)
             {
 
+            }
+        });
+
+        btnAddBeta.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(ClimbActivity.this, CameraActivity.class);
+                intent.putExtra("route", route.getObjectId());
+                startActivity(intent);
             }
         });
     }
