@@ -110,17 +110,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         loc.addOnCompleteListener(this, new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
-                if (task.isSuccessful()) {
+                if (task.isSuccessful() && task.getResult() != null) {
                     // Set the map's camera position to the current location of the device.
                     lastKnownLocation = (android.location.Location)task.getResult();
-                    LatLng latLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                    map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f));
+
+                        LatLng latLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f));
                 } else {
                     Log.d(TAG, "Current location is null. Using defaults.");
-                    Log.e(TAG, "Exception: %s", task.getException());
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                            new LatLng(37.8651, 119.5383), 10.0f));
+                            new LatLng(37.8651, -119.5383), 5.0f));
                 }
             }
         });

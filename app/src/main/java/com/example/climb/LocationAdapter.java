@@ -1,6 +1,7 @@
 package com.example.climb;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.climb.activities.ClimbActivity;
 import com.example.climb.models.Route;
 import com.parse.ParseFile;
 
@@ -37,7 +39,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Route route = routes.get(position);
         holder.bind(route);
-
     }
 
     @Override
@@ -57,6 +58,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        private View view;
         private TextView tvClimbName;
         private TextView tvClimbDescription;
         private ImageView ivClimbThumbnail;
@@ -66,7 +68,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
             tvClimbName = itemView.findViewById(R.id.tvClimbName);
             tvClimbDescription = itemView.findViewById(R.id.tvClimbDescription);
             ivClimbThumbnail = itemView.findViewById(R.id.ivClimbThumbnail);
-
+            view = itemView;
         }
 
         public void bind(Route route) {
@@ -77,8 +79,17 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivClimbThumbnail);
             }
+
+            view.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent(v.getContext(), ClimbActivity.class);
+                    intent.putExtra("route", route);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
-
-
 }
