@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.example.climb.RouteMarker;
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 // Custom class for annotating an image; utilizes Android's Canvas
 public class AnnotationView extends androidx.appcompat.widget.AppCompatImageView
 {
+    public final String TAG = "AnnotationActivity";
+
     ArrayList<RouteMarker> routeMarkers = new ArrayList();
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -94,6 +97,8 @@ public class AnnotationView extends androidx.appcompat.widget.AppCompatImageView
                     routeMarker.y + routeMarker.radius,
                     paint
             );
+
+            Log.i(TAG, "Adding marker: x=" + routeMarker.x + " y=" + routeMarker.y);
         }
 
         setImageDrawable(new BitmapDrawable(getResources(), tempBmp));
